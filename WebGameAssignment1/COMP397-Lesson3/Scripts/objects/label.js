@@ -20,3 +20,4 @@ var objects;
     })(createjs.Text);
     objects.Label = Label;
 })(objects || (objects = {}));
+//# sourceMappingURL=label.js.map

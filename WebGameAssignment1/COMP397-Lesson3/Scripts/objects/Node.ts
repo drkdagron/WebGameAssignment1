@@ -3,6 +3,8 @@
         protected parent: Node;
         id: number;
 
+        correctPath: boolean = false;
+
         constructor(p:Node, i:number) {
             this.parent = p;
             this.id = i;

@@ -2,6 +2,7 @@ var objects;
 (function (objects) {
     var Node = (function () {
         function Node(p, i) {
+            this.correctPath = false;
             this.parent = p;
             this.id = i;
         }
@@ -18,3 +19,4 @@ var objects;
     })();
     objects.Node = Node;
 })(objects || (objects = {}));
+//# sourceMappingURL=node.js.map
