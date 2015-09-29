@@ -6,6 +6,7 @@
 /// <reference path="../typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="../typings/soundjs/soundjs.d.ts" />
 /// <reference path="../typings/preloadjs/preloadjs.d.ts" />
+/// <reference path="../objects/node.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
 /// <reference path="../states/menu.ts" />
@@ -19,6 +20,9 @@ var stateFunction; // alias for our current state
 // Game Variables
 var helloLabel;
 var startButton;
+var node1;
+var node2;
+var node3;
 function init() {
     canvas = document.getElementById("canvas"); // reference to canvas element
     stage = new createjs.Stage(canvas); // passing canvas to stage
@@ -26,6 +30,12 @@ function init() {
     createjs.Ticker.setFPS(60); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     setupStats(); // sets up our stats counting
+    node1 = new objects.Node(null, 0);
+    node2 = new objects.Node(node1, 1);
+    node3 = new objects.Node(node2, 2);
+    console.log(node1.getParentString());
+    console.log(node2.getParentString());
+    console.log(node3.getParentString());
     state = config.MENU_STATE;
     changeState();
 }
@@ -65,4 +75,3 @@ function changeState() {
     }
     stateFunction();
 }
-//# sourceMappingURL=game.js.map

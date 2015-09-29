@@ -8,6 +8,7 @@
 /// <reference path="../typings/soundjs/soundjs.d.ts" />
 /// <reference path="../typings/preloadjs/preloadjs.d.ts" />
 
+/// <reference path="../objects/node.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
 
@@ -26,6 +27,9 @@ var stateFunction: any; // alias for our current state
 var helloLabel: objects.Label;
 var startButton: objects.Button;
 
+var node1: objects.Node;
+var node2: objects.Node;
+var node3: objects.Node;
 
 function init():void {
     canvas = document.getElementById("canvas"); // reference to canvas element
@@ -34,6 +38,13 @@ function init():void {
     createjs.Ticker.setFPS(60); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     setupStats(); // sets up our stats counting
+
+    node1 = new objects.Node(null, 0);
+    node2 = new objects.Node(node1, 1);
+    node3 = new objects.Node(node2, 2);
+    console.log(node1.getParentString());
+    console.log(node2.getParentString());
+    console.log(node3.getParentString());
 
     state = config.MENU_STATE;
     changeState();
