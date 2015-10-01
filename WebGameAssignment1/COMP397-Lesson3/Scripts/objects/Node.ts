@@ -4,6 +4,7 @@
         id: number;
 
         correctPath: boolean = false;
+        story: objects.Story;
 
         constructor(p:Node, i:number) {
             this.parent = p;

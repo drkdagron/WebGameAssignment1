@@ -1,12 +1,13 @@
 /// <reference path="../config/config.ts" />
-/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="../typings/stats/stats.d.ts" />
 /// <reference path="../typings/createjs-lib/createjs-lib.d.ts" />
 /// <reference path="../typings/easeljs/easeljs.d.ts" />
+/// <reference path="../objects/story.ts" />
+/// <reference path="../objects/node.ts" />
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/stats/stats.d.ts" />
 /// <reference path="../typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="../typings/soundjs/soundjs.d.ts" />
 /// <reference path="../typings/preloadjs/preloadjs.d.ts" />
-/// <reference path="../objects/node.ts" />
 /// <reference path="../objects/label.ts" />
 /// <reference path="../objects/button.ts" />
 /// <reference path="../states/menu.ts" />
@@ -20,6 +21,8 @@ var stateFunction; // alias for our current state
 // Game Variables
 var nodeCount = 0; //this will give all the nodes a unique id
 var nodeArray; //container for all the nodes
+var currentNode = 0;
+var storyObjects;
 var levels = 4; //this will determine how deep a tree will be created
 function init() {
     canvas = document.getElementById("canvas"); // reference to canvas element
@@ -28,6 +31,8 @@ function init() {
     createjs.Ticker.setFPS(60); // set frame rate to 60 fps
     createjs.Ticker.on("tick", gameLoop); // update gameLoop every frame
     setupStats(); // sets up our stats counting
+    storyObjects = new Array();
+    buildStory();
     nodeArray = new Array();
     nodeArray.push(new objects.Node(null, nodeCount++));
     for (var i = 0; i < levels; i++) {
@@ -36,12 +41,48 @@ function init() {
                 addChildrenTo(nodeArray[j].id);
         }
     }
+    for (var i = 0; i < nodeArray.length; i++) {
+        if (i <= storyObjects.length)
+            nodeArray[i].story = storyObjects[i];
+    }
     var tmp = getNodesatLevel(levels);
     setScorableNode(tmp);
     console.log("Scorable tile is at: " + findScoreableNode().id);
     listTotalNodes();
     state = config.MENU_STATE;
-    changeState();
+    states.buildMenu();
+}
+function buildStory() {
+    /* 0 */ storyObjects.push(new objects.Story(["You step into the house, it is old and dilapidated,", "covered in dust and cobwebs you have two choices.", "Stay on the main floor to explore or", "head up into the darkness upstairs"], "Stay on the main floor", "Head upstairs"));
+    /* 1 */ storyObjects.push(new objects.Story(["You try the light switch and the old lights turn on,", "behind the stairs you see a heavy steel door,", "'but to the right is a pair of grand double doors."], "Go through heavy steel door", "Go through grand double doors"));
+    /* 2 */ storyObjects.push(new objects.Story(["You head up the stairs to find a heavy", "black door in front of you, to your left along", "the railing leading deeper into the house is a hallway.", "A ghostly young man is walking down the", "toward the end of the hall."], "Go to the door", "Walk through hallway"));
+    /* 3 */ storyObjects.push(new objects.Story(["You are in the dining room; the table is eight", "chairs long with a head chair at the end.", "The lights are already on, but a broken chandelier", "hangs on the right where there is a blue felted door.", "On the opposite wall against the windows", "is a solid white door."], "Go to the blue door", "Go to the white door"));
+    /* 4 */ storyObjects.push(new objects.Story(["You are in the kitchen, old dishes", "are left on the counter.The large room", "is mostly untouched except for a path with", "dusty prints towards a darkened entry way.", "To the left is a moonlit entry way."], "Check darkened entry way", "Walk to moonlit entry way"));
+    /* 5 */ storyObjects.push(new objects.Story(["At the end of the hall you are stopped", "by the window overlooking the driveway.", "To your left, the door is open ajar and to ", "your right is a red wooden door.You hear", " crying in behind the red door."], "Check the open door", "Open red wooden door"));
+    /* 6 */ storyObjects.push(new objects.Story(["You enter the studio, the ghost of", "Lady Fairfield is sitting in front of an", "aisle with a fade painting of Lord Jacob Fairfield.", "When she sees you, she screams and disappears.", "Within the room you see a Dumbwaiter lift at", "the far wall and to your right", "is a screen door leading outside."], "Go through dumbwaiter", "Go outside"));
+    /* 7 */ storyObjects.push(new objects.Story(["You are taken to a hallway, the floor", "collapsed and standing there is", "Aunt Hailey Fairfield.She turns away,", "walking through the wall."], "Placehold", "Placehold"));
+    /* 8 */ storyObjects.push(new objects.Story(["Leads you out into the Garden lane, ahead", "of you in a broken and dried up fountain;", "sitting on the rim is Young Amy Fairfield.", "She shakes her head and vanishes"], "Placehold", "Placehold"));
+    /* 9 */ storyObjects.push(new objects.Story(["You step through the entryway, falling", "ten meters into a pile of bones.", "The ghostly head of Butler Shamski Jenners", "sits beside you."], "Placehold", "Placehold"));
+    /* 10 */ storyObjects.push(new objects.Story(["You step into a bend of a hallway, the wall", "destroyed and blocking your advance.Uncle Wallace", "Fairfield is standing in front of the debris", "with his arms crossed, vanishing in", "moments.The hole looks out into the Garden."], "Placehold", "Placehold"));
+    /* 11 */ storyObjects.push(new objects.Story(["You enter the main bathroom, the bath", "tub is full and the words help me is smeared", "on the mirror in blood. As you look in", "the mirror, you see a body in the water of the tub.", "You turn around and see the ghost of young Cynthia", "Fairfield. She vanishes and leaves you in", "the silence of the house."], "Placehold", "Placehold"));
+    /* 12 */ storyObjects.push(new objects.Story(["You enter into the master bedroom.You find Uncle", "Charlie and Aunt June Fairfield embracing", "in the room.The ghost Charlie breaks June’s neck", "and fades away. Uncle Charlie Fairfield was the one", "to murder the rest of the family."], "Placehold", "Placehold"));
+    /* 13 */ storyObjects.push(new objects.Story(["You step out onto a long balcony, on the", "bench at the end is a skeleton in a business suit.", "In his lap is a briefcase with the initials of", "Jacob Fairfield and a gold bar in his hand.", "You open the case, to find 2.4 million", "dollars in crisp bills.Who is this man though?"], "Placehold", "Placehold"));
+    /* 14 */ storyObjects.push(new objects.Story(["A supernatural force pushes you into the", "empty dumbwaiter chute, falling from the upstairs", "to the basement onto the broken lift.Standing", "above you in young master Dylan Fairfield who", "points and laughs at you as he fades away."], "Placehold", "Placehold"));
+}
+function moveToParent() {
+    currentNode = getNodeAt(currentNode).getParent().id;
+    resetLevel();
+}
+function moveThroughTree(left) {
+    //if left is true then go down the left child (first added child) and false means right (second)
+    if (left)
+        currentNode = getChildrenAt(currentNode)[0].id;
+    else
+        currentNode = getChildrenAt(currentNode)[1].id;
+    resetLevel();
+}
+function resetLevel() {
+    states.buildLevel();
 }
 function findScoreableNode() {
     for (var i = 0; i < nodeArray.length; i++) {
@@ -93,6 +134,15 @@ function getNodeAt(id) {
     }
     return null;
 }
+function getChildrenAt(id) {
+    var tmp;
+    tmp = new Array();
+    for (var i = 1; i < nodeArray.length; i++) {
+        if (nodeArray[i].getParent().id == id)
+            tmp.push(nodeArray[i]);
+    }
+    return tmp;
+}
 function addChildrenTo(id) {
     if (getChildCountAt(id) > 1)
         return;
@@ -124,22 +174,5 @@ function setupStats() {
     stats.domElement.style.left = "0px";
     stats.domElement.style.top = "0px";
     document.body.appendChild(stats.domElement);
-}
-// state machine prep
-function changeState() {
-    // Launch various scenes
-    switch (state) {
-        case config.MENU_STATE:
-            // show the menu scene
-            stateFunction = states.menu;
-            break;
-        case config.PLAY_STATE:
-            // show the play scene
-            break;
-        case config.OVER_STATE:
-            // show the game over scene
-            break;
-    }
-    stateFunction();
 }
 //# sourceMappingURL=game.js.map
