@@ -10,3 +10,4 @@ var objects;
     })();
     objects.Story = Story;
 })(objects || (objects = {}));
+//# sourceMappingURL=story.js.map

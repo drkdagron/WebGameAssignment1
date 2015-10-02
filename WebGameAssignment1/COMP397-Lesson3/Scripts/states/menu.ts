@@ -10,7 +10,7 @@ module states {
             scene.addChild(tmp);
         }
 
-        var start = new objects.Button("NextButton", 320, 360);
+        var start = new objects.Button("Start", 320, 360);
         start.on("click", function (event) { buildLevel() });
         scene.addChild(start);
 
@@ -33,14 +33,14 @@ module states {
 
         //320 mid
         if (currentNode != 0) {
-            var up = new objects.Button("BackButton", 320, 50);
+            var up = new objects.Button("Back", 320, 50);
             up.on("click", function (event) { moveToParent() });
             scene.addChild(up);
         }
-        var back = new objects.Button("BackButton", 180, 360);
+        var back = new objects.Button("Left", 180, 360);
         back.on("click", function (event) { moveThroughTree(true); });
         scene.addChild(back);
-        var next = new objects.Button("NextButton", 460, 360);
+        var next = new objects.Button("Right", 460, 360);
         next.on("click", function (event) {
             moveThroughTree(false);
         });
@@ -54,18 +54,22 @@ module states {
         scene = new createjs.Container();
 
         for (var i = 0; i < getNodeAt(currentNode).story.story.length; i++) {
-            var tmp = new objects.Label(getNodeAt(currentNode).story.story[i], "26 Arial", "#000000", 320, (100 + (i * 30)));
+            var tmp = new objects.Label(getNodeAt(currentNode).story.story[i], "24px Arial", "#000000", 320, (100 + (i * 30)));
             scene.addChild(tmp);
         }
 
         if (getNodeAt(currentNode).correctPath == true) {
-            var tmp = new objects.Label("You found the treasure!", "20 Arial", "#000000", 320, 320);
+            var tmp = new objects.Label("You found the treasure!", "24px Arial", "#000000", 320, 320);
             scene.addChild(tmp);
         }
         else {
-            var tmp = new objects.Label("You died!", "20 Arial", "#000000", 320, 320);
+            var tmp = new objects.Label("You died!", "24px Arial", "#000000", 320, 320);
             scene.addChild(tmp);
         }
+
+        var returnToMenu = new objects.Button("Back", 320, 380);
+        returnToMenu.on("click", function (event) { resetGame(); });
+        scene.addChild(returnToMenu);
 
         stage.addChild(scene);
     }

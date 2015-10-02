@@ -5,3 +5,4 @@ var config;
     config.PLAY_STATE = 1;
     config.OVER_STATE = 2;
 })(config || (config = {}));
+//# sourceMappingURL=config.js.map
