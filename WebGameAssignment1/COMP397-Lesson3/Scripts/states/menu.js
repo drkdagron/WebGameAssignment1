@@ -65,4 +65,3 @@ var states;
     }
     states.buildChoice = buildChoice;
 })(states || (states = {}));
-//# sourceMappingURL=menu.js.map

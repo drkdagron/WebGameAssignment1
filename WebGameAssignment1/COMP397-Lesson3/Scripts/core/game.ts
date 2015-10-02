@@ -92,7 +92,7 @@ function buildStory(): void {
         "Check the basement", "Check dumbwaiter chute"));
     //these are the good and bad results
     storyObjects.push(new objects.Story(["You begin pulling yourself back up.", "Aunt Hailey comes back through the wall and scares you.","You fall into the hole to your death."], "", ""));
-    storyObjects.push(new objects.Story(["Your legs shatter as you hit the ground.","Aunt Hailey begins laughing histerically."], "", ""));
+    storyObjects.push(new objects.Story(["Your legs shatter as you hit the ground.","Aunt Hailey begins laughing hysterically."], "", ""));
     storyObjects.push(new objects.Story(["The flowers come to life and begin to suffocate you.","Young Amy appears back on the fountain smiling."], "", ""));
     storyObjects.push(new objects.Story(["As you look into the fountain Young Amy","appears in the water and pulls you under."], "", ""));
     storyObjects.push(new objects.Story(["The head screams as you grab it as frighten","you pull back and impale yourself on bones."], "", ""));
@@ -104,9 +104,9 @@ function buildStory(): void {
     storyObjects.push(new objects.Story(["The ghosts pull you out from under the","bed and throw you out the window."], "", ""));
     storyObjects.push(new objects.Story(["As you turn around to leave you get pulled","onto the bed and smothered. You panic but","fail to free yourself."], "", ""));
     storyObjects.push(new objects.Story(["You open the briefcase and look inside.","You find $3 million dollars in cash."], "", ""));
-    storyObjects.push(new objects.Story(["You pull the jacket open to see the mans gun.","As you go to reach for it. You hear someone scream","and you stumble and get shot from behind."], "", ""));
+    storyObjects.push(new objects.Story(["You pull the jacket open to see the man's gun.","As you go to reach for it. You hear someone scream","and you stumble and get shot from behind."], "", ""));
     storyObjects.push(new objects.Story(["As you begin to get out of the dumbwaiter the","young master breaks all the lights and shuts","all the doors leaving you in darkness."], "", ""));
-    storyObjects.push(new objects.Story(["You check under the dumbwaiter. You","hear noices above you, you try to get out but","its too late as the pully system comes","crashing down."], "", ""));
+    storyObjects.push(new objects.Story(["You check under the dumbwaiter. You","hear noises above you, you try to get out but","its too late as the pulley system comes","crashing down."], "", ""));
 }
 
 function resetGame() {
