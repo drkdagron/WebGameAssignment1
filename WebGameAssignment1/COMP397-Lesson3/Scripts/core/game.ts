@@ -74,27 +74,44 @@ function buildStory(): void {
     /* 4 */ storyObjects.push(new objects.Story(["You are in the kitchen, old dishes", "are left on the counter.The large room", "is mostly untouched except for a path with", "dusty prints towards a darkened entry way.", "To the left is a moonlit entry way."], "Check darkened entry way", "Walk to moonlit entry way"));
     /* 5 */ storyObjects.push(new objects.Story(["At the end of the hall you are stopped", "by the window overlooking the driveway.", "To your left, the door is open ajar and to ", "your right is a red wooden door.You hear", " crying in behind the red door."], "Check the open door", "Open red wooden door"));
     /* 6 */ storyObjects.push(new objects.Story(["You enter the studio, the ghost of", "Lady Fairfield is sitting in front of an", "aisle with a fade painting of Lord Jacob Fairfield.", "When she sees you, she screams and disappears.", "Within the room you see a Dumbwaiter lift at","the far wall and to your right", "is a screen door leading outside."], "Go through dumbwaiter", "Go outside"));
-    /* 7 */ storyObjects.push(new objects.Story(["You are taken to a hallway, the floor", "collapsed and standing there is", "Aunt Hailey Fairfield.She turns away,", "walking through the wall."],
-        "Placehold", "Placehold"));
+    /* 7 */ storyObjects.push(new objects.Story(["You are taken to a hallway, the floor", "collapsed and standing there is", "Aunt Hailey Fairfield. She turns away,", "walking through the wall."],
+        "Get back up", "Jump down"));
     /* 8 */ storyObjects.push(new objects.Story(["Leads you out into the Garden lane, ahead", "of you in a broken and dried up fountain;", "sitting on the rim is Young Amy Fairfield.", "She shakes her head and vanishes"],
-        "Placehold", "Placehold"));
+        "Turn back", "Look in fountain"));
     /* 9 */ storyObjects.push(new objects.Story(["You step through the entryway, falling", "ten meters into a pile of bones.", "The ghostly head of Butler Shamski Jenners", "sits beside you."],
-        "Placehold", "Placehold"));
-    /* 10 */ storyObjects.push(new objects.Story(["You step into a bend of a hallway, the wall", "destroyed and blocking your advance.Uncle Wallace", "Fairfield is standing in front of the debris", "with his arms crossed, vanishing in", "moments.The hole looks out into the Garden."],
-        "Placehold", "Placehold"));
+        "Look under head", "Look under bones"));
+    /* 10 */ storyObjects.push(new objects.Story(["You step into a bend of a hallway, the wall", "destroyed and blocking your advance. Uncle Wallace", "Fairfield is standing in front of the debris", "with his arms crossed, vanishing in", "moments. The hole looks out into the Garden."],
+        "Step into the garden", "Check in the debris"));
     /* 11 */ storyObjects.push(new objects.Story(["You enter the main bathroom, the bath", "tub is full and the words help me is smeared", "on the mirror in blood. As you look in", "the mirror, you see a body in the water of the tub.", "You turn around and see the ghost of young Cynthia", "Fairfield. She vanishes and leaves you in", "the silence of the house."],
-        "Placehold", "Placehold"));
-    /* 12 */ storyObjects.push(new objects.Story(["You enter into the master bedroom.You find Uncle", "Charlie and Aunt June Fairfield embracing", "in the room.The ghost Charlie breaks June’s neck", "and fades away. Uncle Charlie Fairfield was the one", "to murder the rest of the family."],
-        "Placehold", "Placehold"));
-    /* 13 */ storyObjects.push(new objects.Story(["You step out onto a long balcony, on the", "bench at the end is a skeleton in a business suit.", "In his lap is a briefcase with the initials of", "Jacob Fairfield and a gold bar in his hand.", "You open the case, to find 2.4 million", "dollars in crisp bills.Who is this man though?"],
-        "Placehold", "Placehold"));
-    /* 14 */ storyObjects.push(new objects.Story(["A supernatural force pushes you into the", "empty dumbwaiter chute, falling from the upstairs", "to the basement onto the broken lift.Standing", "above you in young master Dylan Fairfield who", "points and laughs at you as he fades away."],
-        "Placehold", "Placehold"));
+        "Check the Tub", "Check behind mirror"));
+    /* 12 */ storyObjects.push(new objects.Story(["You enter into the master bedroom. You find Uncle", "Charlie and Aunt June Fairfield embracing", "in the room.The ghost Charlie breaks June’s neck", "and fades away. Uncle Charlie Fairfield was the one", "to murder the rest of the family."],
+        "Check under the bed", "Run back into the hallway"));
+    /* 13 */ storyObjects.push(new objects.Story(["You step out onto a long balcony, on the", "bench at the end is a skeleton in a business suit.", "In his lap is a briefcase with the initials of", "Jacob Fairfield. Who is this man though?"],
+        "Check the briefcase", "Check the suit"));
+    /* 14 */ storyObjects.push(new objects.Story(["A supernatural force pushes you into the", "empty dumbwaiter chute, falling from the upstairs", "to the basement onto the broken lift. Standing", "above you in young master Dylan Fairfield who", "points and laughs at you as he fades away."],
+        "Check the basement", "Check dumbwaiter chute"));
+    //these are the good and bad results
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
+    storyObjects.push(new objects.Story([""], "", ""));
 }
 
 function moveToParent() {
     currentNode = getNodeAt(currentNode).getParent().id;
-    resetLevel();
+    states.buildLevel();
 }
 
 function moveThroughTree(left: boolean) {
@@ -104,11 +121,10 @@ function moveThroughTree(left: boolean) {
     else
         currentNode = getChildrenAt(currentNode)[1].id;
 
-    resetLevel();
-}
-
-function resetLevel() {
-    states.buildLevel();
+    if (getLevelatNode(currentNode) < levels)
+        states.buildLevel();
+    else
+        states.buildChoice();
 }
 
 function findScoreableNode(): objects.Node {

@@ -19,4 +19,3 @@ var objects;
     })();
     objects.Node = Node;
 })(objects || (objects = {}));
-//# sourceMappingURL=node.js.map

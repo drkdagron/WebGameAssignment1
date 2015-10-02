@@ -43,5 +43,22 @@ var states;
         stage.addChild(scene);
     }
     states.buildLevel = buildLevel;
+    function buildChoice() {
+        stage.removeAllChildren();
+        scene = new createjs.Container();
+        for (var i = 0; i < getNodeAt(currentNode).story.story.length; i++) {
+            var tmp = new objects.Label(getNodeAt(currentNode).story.story[i], "26 Arial", "#000000", 320, (100 + (i * 30)));
+            scene.addChild(tmp);
+        }
+        if (getNodeAt(currentNode).correctPath == true) {
+            var tmp = new objects.Label("You found the treasure!", "20 Arial", "#000000", 320, 320);
+            scene.addChild(tmp);
+        }
+        else {
+            var tmp = new objects.Label("You died!", "20 Arial", "#000000", 320, 320);
+            scene.addChild(tmp);
+        }
+        stage.addChild(scene);
+    }
+    states.buildChoice = buildChoice;
 })(states || (states = {}));
-//# sourceMappingURL=menu.js.map
