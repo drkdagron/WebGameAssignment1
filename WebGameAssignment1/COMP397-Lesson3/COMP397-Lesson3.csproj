@@ -63,6 +63,7 @@
     <Content Include="Assets\images\Back.png" />
     <Content Include="Assets\images\Left.png" />
     <Content Include="Assets\images\Right.png" />
+    <Content Include="Assets\images\ScaryMansion.jpeg" />
     <Content Include="Assets\images\Start.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">

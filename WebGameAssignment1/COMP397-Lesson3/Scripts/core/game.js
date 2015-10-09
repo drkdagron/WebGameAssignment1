@@ -197,4 +197,3 @@ function setupStats() {
     stats.domElement.style.top = "0px";
     document.body.appendChild(stats.domElement);
 }
-//# sourceMappingURL=game.js.map
